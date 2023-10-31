@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simulador de Empréstimo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 24px;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+        }
+
+        button {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Simulador de Empréstimo</h1>
+        <label for="valorEmprestimo">Valor do Empréstimo (R$):</label>
+        <input type="number" id="valorEmprestimo" placeholder="Digite o valor do empréstimo" required>
+
+        <label for="taxaJuros">Taxa de Juros (%):</label>
+        <input type="number" id="taxaJuros" placeholder="Digite a taxa de juros" required>
+
+        <label for="numParcelas">Número de Parcelas:</label>
+        <input type="number" id="numParcelas" placeholder="Digite o número de parcelas" required>
+
+        <button onclick="calcularParcelas()">Calcular Parcelas</button>
+
+        <div id="resultado"></div>
+    </div>
+
+    <script>
+        function calcularParcelas() {
+            var valorEmprestimo = parseFloat(document.getElementById('valorEmprestimo').value);
+            var taxaJuros = parseFloat(document.getElementById('taxaJuros').value) / 100;
+            var numParcelas = parseInt(document.getElementById('numParcelas').value);
+            
+            if (isNaN(valorEmprestimo) || isNaN(taxaJuros) || isNaN(numParcelas)) {
+                alert("Por favor, preencha todos os campos com valores numéricos.");
+            } else {
+                var valorParcela = (valorEmprestimo * taxaJuros) / (1 - Math.pow(1 + taxaJuros, -numParcelas));
+                document.getElementById('resultado').innerHTML = "Valor da Parcela: R$" + valorParcela.toFixed(2);
+            }
+        }
+    </script>
+</body>
+</html>
